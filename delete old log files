@@ -1,0 +1,11 @@
+---
+- name: to delete the old log files
+  hosts: nwsyslog.cn.ibm.com
+  user: anstadm
+  become: yes
+  become_method: sudo
+  tasks:
+	- name: deleting the old log files
+	  file:
+	   path: /log/today
+	   shell: rm-rf 2019*
