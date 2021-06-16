@@ -12,9 +12,8 @@
    age: '180d'
    file_type: file
   register: filesolderthan180d
-	      
- - name: clear the logs
-   file:
-    path: "{{ item path }}"
-    state: absent
-   with_items: "{{ filesolderthan180d.files }}"
+- name: clear the logs
+  file:
+   path: "{{ item path }}"
+   state: absent
+  with_items: "{{ filesolderthan180d.files }}"
