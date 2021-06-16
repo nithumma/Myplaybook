@@ -5,7 +5,16 @@
   become: yes
   become_method: sudo
   tasks:
-     - name: deleting the old log files
-       file:
-       path: /log/today
-       shell: rm-rf 2019*
+	- name: deleting the old log files
+	  find:
+	   paths: /log/today
+	   patterns: '*.log'
+	   age: '180d'
+	   file_type: file
+	  register: filesolderthan180d
+	      
+	- name: clear the logs
+	  file:
+	   path: "{{ item path }}"
+	   state: absent
+	  with_items: "{{ filesolderthan180d.files }}"
